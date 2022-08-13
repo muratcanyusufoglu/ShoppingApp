@@ -5,7 +5,6 @@
  * @format
  * @flow strict-local
  */
-
  import React, {useState,useContext} from 'react';
  import {
    SafeAreaView,
@@ -24,24 +23,21 @@
  import Ionicons from '@expo/vector-icons/FontAwesome';
  import {useNavigation} from '@react-navigation/native';
 
- 
  const App = () => {
   
   const navigation = useNavigation();
 
   const {info} = useContext(PracticeContext);
 
-
   const {loading,data} = useFetch('https://fakestoreapi.com/products');
 
   const getcomponent=({item})=>
-  <Card prop={item} onpress={()=>console.log('tete')}
-  />;
+  <Card prop={item} 
+  />; 
 
   console.log(loading,data)
-  return (
-      
-        <SafeAreaView style={styles.body}>
+  return (  
+      <SafeAreaView style={styles.body}>
 
         <View style={{flexDirection:'row',alignItems:'center',justifyContent:'space-between'}}>
           <View style={styles.header}>
@@ -49,9 +45,9 @@
           <Text style={styles.title2}>{I18n.t('BlaBla Shop')}</Text>
           </View>
 
-          <TouchableOpacity onPress={navigation.navigate('Basket')} style={{alignItems:'center',margin:10}}>
+          <TouchableOpacity onPress={()=>{navigation.navigate("Basket")}} style={{alignItems:'center',margin:10}}>
             <Text>{info.length}</Text>
-            <Ionicons name="shopping-cart" size={32} color="black" />
+            <Ionicons name="shopping-cart" size={32} color="black" onPress={navigation.navigate('Basket')}/>
           </TouchableOpacity>
         
         </View>
@@ -62,8 +58,7 @@
           renderItem={getcomponent}
           />      
 
-        </SafeAreaView>
-      
+      </SafeAreaView>
   );
 };
  
@@ -74,12 +69,12 @@
    },
    title:{
      fontSize:25,
-     fontWight:'bold',
+     fontWeight:'bold',
    },
    title2:{
      fontSize:30,
      color:'#4d9878',
-     fontWight:'bold',
+     fontWeight:'bold',
  
    }
  

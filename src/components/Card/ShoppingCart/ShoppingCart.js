@@ -1,42 +1,60 @@
-import { View, Text, ScrollView,StyleSheet,Image } from 'react-native'
+import { View, Text, ScrollView,StyleSheet,Image, TouchableOpacity } from 'react-native'
 import React,{useContext} from 'react';
 import {PracticeContext} from '../../../Context/NewContext'
 
-const Card =() => {
 
-  const {info,addbasket} = useContext(PracticeContext);
+
+const ShoppingCard =() => {
+
+  const {info,addbasket,deleteBasket} = useContext(PracticeContext);
+
+  const totalPrice = info.reduce((a,c)=> a + Number(c.price) * c.qty,0)
 
   return (
-    <ScrollView>
-        {info.map(item => 
-            <View style={styles.container}>
-        
-            <Image style={styles.image} source={{uri:item.image}} />
+        <ScrollView>
+            {info.map(item => 
+                <View style={styles.container}>
+                
+                <Image style={styles.image} source={{uri:item.image}} />
 
-            <View style={styles.textbar}>
+                <View style={styles.textbar}>
+
+                <View>
+                <Text style={styles.title}>{item.title}</Text>
+                </View>
+                {/* <TouchableOpacity onPress={()=>addbasket(item)} style={{backgroundColor:'orange'}}>
+                    <Text>ADD BASKET</Text>
+                </TouchableOpacity> */}
+
+                <View style={styles.bottom}>
+
+                <View style={{flexDirection:'row'}}>
+                <TouchableOpacity style={styles.button2} onPress={()=>deleteBasket(item)}>
+                <Text>-</Text>
+                </TouchableOpacity>
+
+                <Text style={{marginHorizontal:10}}>{item.qty}</Text>
+
+                <TouchableOpacity style={styles.button} onPress={()=> addbasket(item)}>
+                <Text>+</Text>
+                </TouchableOpacity>
+                </View>
+
+                <Text style={styles.price}>{item.price}$</Text>
+                </View>
+
+                </View>
             
-            <View>
-            <Text style={styles.title}>{item.title}</Text>
+            </View>    
+            )}
+            <View style={{alignItems:'center'}}>
+            <Text>Total:{totalPrice}</Text>
             </View>
-            {/* <TouchableOpacity onPress={()=>addbasket(item)} style={{backgroundColor:'orange'}}>
-                <Text>ADD BASKET</Text>
-            </TouchableOpacity> */}
-
-            <View style={styles.bottom}>
-            <Text style={styles.category}>{item.category}</Text>
-            <Text style={styles.price}>{item.price}$</Text>
-            </View>
-
-            </View>
-        
-        </View>    
-        )}
-
-    </ScrollView>
+        </ScrollView>
   );
 }
 
-export default Card;
+export default ShoppingCard;
 
 const styles = StyleSheet.create({
     container:{
@@ -74,5 +92,19 @@ const styles = StyleSheet.create({
     price:{
         textAlign:'right',
         marginRight:5,
+    },
+    button: {
+        height:25,
+        width:25,
+        backgroundColor:'#83c5be',
+        alignItems:'center',
+        justifyContent:'center',
+    },
+    button2: {
+        height:25,
+        width:25,
+        backgroundColor:'#e85d04',
+        alignItems:'center',
+        justifyContent:'center',
     }
 })

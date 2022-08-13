@@ -2,34 +2,35 @@ import { View, Text, TouchableOpacity,StyleSheet,Image } from 'react-native'
 import React,{useContext} from 'react';
 import {PracticeContext} from '../../../Context/NewContext'
 
-const Card =({prop,onpress}) => {
-
-  const {info,addbasket} = useContext(PracticeContext);
+const Card =({prop}) => {
+  
+    const {info,addbasket} = useContext(PracticeContext);
 
   return (
-    <TouchableOpacity>
-        <View style={styles.container}>
-            
-            <Image style={styles.image} source={{uri:prop.image}} />
 
-            <View style={styles.textbar}>
-            
-            <View>
-            <Text style={styles.title}>{prop.title}</Text>
-            </View>
-            <TouchableOpacity onPress={()=>addbasket(prop)} style={{backgroundColor:'orange'}}>
-                <Text>ADD BASKET</Text>
-            </TouchableOpacity>
+        <TouchableOpacity>
+            <View style={styles.container}>
 
-            <View style={styles.bottom}>
-            <Text style={styles.category}>{prop.category}</Text>
-            <Text style={styles.price}>{prop.price}$</Text>
-            </View>
+                <Image style={styles.image} source={{uri:prop.image}} />
+
+                <View style={styles.textbar}>
+
+                <View>
+                <Text style={styles.title}>{prop.title}</Text>
+                </View>
+                <TouchableOpacity onPress={()=>addbasket(prop)} style={{backgroundColor:'orange'}}>
+                    <Text>ADD BASKETT</Text>
+                </TouchableOpacity>
+
+                <View style={styles.bottom}>
+                <Text style={styles.category}>{prop.category}</Text>
+                <Text style={styles.price}>{prop.price}$</Text>
+                </View>
+
+                </View>
 
             </View>
-        
-        </View>
-    </TouchableOpacity>
+        </TouchableOpacity>
   );
 }
 
