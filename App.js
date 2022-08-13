@@ -16,8 +16,8 @@ function App() {
   <Provider store={store}>
     <ContextProvider>
      <NavigationContainer>
-       <Stack.Navigator initialRouteName='Payment'>
-        <Stack.Screen name="Payment" component ={Payment}/>
+       <Stack.Navigator initialRouteName='Home'>
+        {/* <Stack.Screen name="Payment" component ={Payment}/> */}
         <Stack.Screen name="Home" component={AppPage}/>
         <Stack.Screen name="Basket" component={ShoppingCart} />
        </Stack.Navigator>

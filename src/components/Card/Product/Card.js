@@ -1,9 +1,16 @@
 import { View, Text, TouchableOpacity,StyleSheet,Image } from 'react-native'
 import React,{useContext} from 'react';
 import {PracticeContext} from '../../../Context/NewContext'
+import {addList, } from '../../../redux/actions/listAction';
+import {useDispatch, useSelector} from 'react-redux';
+import {Provider} from 'react-redux';
+import store from '../../../redux/store';
 
 const Card =({prop}) => {
-  
+    const dispatch = useDispatch();
+    const myList = useSelector((state) => state.myList)
+    console.log('m',myList)
+
     const {info,addbasket} = useContext(PracticeContext);
 
   return (
@@ -18,7 +25,7 @@ const Card =({prop}) => {
                 <View>
                 <Text style={styles.title}>{prop.title}</Text>
                 </View>
-                <TouchableOpacity onPress={()=>addbasket(prop)} style={{backgroundColor:'orange'}}>
+                <TouchableOpacity onPress={()=>dispatch(addList(prop))} style={{backgroundColor:'orange'}}>
                     <Text>ADD BASKETT</Text>
                 </TouchableOpacity>
 

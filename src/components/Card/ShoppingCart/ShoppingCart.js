@@ -1,18 +1,24 @@
 import { View, Text, ScrollView,StyleSheet,Image, TouchableOpacity } from 'react-native'
 import React,{useContext} from 'react';
 import {PracticeContext} from '../../../Context/NewContext'
+import {useDispatch, useSelector} from 'react-redux';
+import {addList,removeList} from '../../../redux/actions/listAction';
 
 
 
 const ShoppingCard =() => {
 
-  const {info,addbasket,deleteBasket} = useContext(PracticeContext);
+  const dispatch = useDispatch();
+  const myList = useSelector((state)=>state.myList)
+  console.log('ml',myList)
 
-  const totalPrice = info.reduce((a,c)=> a + Number(c.price) * c.qty,0)
+  //const {info,addbasket,deleteBasket} = useContext(PracticeContext);
+
+  const totalPrice = myList.reduce((a,c)=> a + Number(c.price) * c.qty,0)
 
   return (
         <ScrollView>
-            {info.map(item => 
+            {myList.map(item => 
                 <View style={styles.container}>
                 
                 <Image style={styles.image} source={{uri:item.image}} />
@@ -29,13 +35,13 @@ const ShoppingCard =() => {
                 <View style={styles.bottom}>
 
                 <View style={{flexDirection:'row'}}>
-                <TouchableOpacity style={styles.button2} onPress={()=>deleteBasket(item)}>
+                <TouchableOpacity style={styles.button2} onPress={()=>dispatch(removeList(item))}>
                 <Text>-</Text>
                 </TouchableOpacity>
 
                 <Text style={{marginHorizontal:10}}>{item.qty}</Text>
 
-                <TouchableOpacity style={styles.button} onPress={()=> addbasket(item)}>
+                <TouchableOpacity style={styles.button} onPress={()=> dispatch(addList(item))}>
                 <Text>+</Text>
                 </TouchableOpacity>
                 </View>

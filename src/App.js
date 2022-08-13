@@ -22,12 +22,14 @@
  import {PracticeContext} from './Context/NewContext';
  import Ionicons from '@expo/vector-icons/FontAwesome';
  import {useNavigation} from '@react-navigation/native';
+ import {useSelector} from 'react-redux';
 
  const App = () => {
   
   const navigation = useNavigation();
+  const myList = useSelector((state) => state.myList);
 
-  const {info} = useContext(PracticeContext);
+  //const {info} = useContext(PracticeContext);
 
   const {loading,data} = useFetch('https://fakestoreapi.com/products');
 
@@ -46,7 +48,7 @@
           </View>
 
           <TouchableOpacity onPress={()=>{navigation.navigate("Basket")}} style={{alignItems:'center',margin:10}}>
-            <Text>{info.length}</Text>
+            <Text>{myList.length}</Text>
             <Ionicons name="shopping-cart" size={32} color="black" onPress={navigation.navigate('Basket')}/>
           </TouchableOpacity>
         
